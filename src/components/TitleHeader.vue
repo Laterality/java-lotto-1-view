@@ -2,7 +2,7 @@
     <header class="header">
         <h1>{{ title }}</h1>
         <router-link to="/history">
-            <button class="btn btn-light">지난 회차 당첨 내역 ≫</button>
+            <b-button type="button" variant="light">지난 회차 당첨 내역 ≫</b-button>
         </router-link>
     </header>
 </template>

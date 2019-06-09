@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <TitleHeader title="로또 구입" />
+    <LottoBuyingForm 
+      :onSubmit="handleSubmit"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+
+import LottoBuyingForm from '@/components/LottoBuyingForm.vue';
+import TitleHeader from '@/components/TitleHeader.vue';
 
 @Component({
   components: {
-    HelloWorld,
+    TitleHeader,
+    LottoBuyingForm,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+
+  private handleSubmit = (value: number) => {
+    console.log(value);
+  }
+}
 </script>
