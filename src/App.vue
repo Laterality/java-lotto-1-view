@@ -39,6 +39,10 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+body {
+  min-height: 100%;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -52,7 +56,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
+    transition: opacity .25s;
 }
 
 .fade-enter, .fade-leave-to {
