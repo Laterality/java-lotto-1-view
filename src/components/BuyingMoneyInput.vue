@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import Util from '@/components/Util';
+import Util from '@/model/Util';
 
 import BuyingMoney from '@/model/BuyingMoney';
 
