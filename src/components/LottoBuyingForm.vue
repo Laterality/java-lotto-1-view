@@ -26,12 +26,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Axios, { AxiosResponse } from 'axios';
+
+import Request from '@/model/Request';
+
+import BuyingMoney from '@/model/BuyingMoney';
 
 import BuyingMoneyInput from '@/components/BuyingMoneyInput.vue';
 import ManualLottoNumberInput from '@/components/ManualLottoNumberInput.vue';
 import WinningNumberInput from '@/components/WinningNumberInput.vue';
-
-import BuyingMoney from '@/model/BuyingMoney';
 
 @Component({
     components: {
@@ -48,17 +51,22 @@ export default class LottoBuyingForm extends Vue {
     private showManualNumber = false;
     private showWinningNumber = false;
 
+    private buyingMoney: BuyingMoney | null = null;
+    private manualNumberStates: string[][] = [];
+    private winningNumberStates: string[] = [];
+
     private onBuyingMoneySubmit(money: BuyingMoney) {
         this.disableBuyingMoney = true;
         this.showManualNumber = true;
         this.disableManulaNumber = false;
-        console.log(money.money);
+        this.buyingMoney = money;
     }
 
     private onManualNumberSubmit(states: string[][]) {
         console.log(states);
         this.disableManulaNumber = true;
         this.showWinningNumber = true;
+        this.manualNumberStates = states;
     }
 
     private onBackFromManualNumber() {
@@ -69,14 +77,60 @@ export default class LottoBuyingForm extends Vue {
     private onWinningNumberSubmit(currentState: string[]) {
         console.log(currentState);
         this.disableWinningNumber = true;
-        setTimeout(() => {
-            this.$router.push('/result');
-        }, 1500);
+        this.winningNumberStates = currentState;
+        this.handleFormSubmit();
     }
 
     private onBackFromWinningNumber() {
         this.disableManulaNumber = false;
         this.disableWinningNumber = true;
+    }
+
+    private handleFormSubmit() {
+        // AJAX 요청 처리
+        // draw api 호출 후
+        // this.$router.push('/result' + resultId);
+        try {
+            this.assertAllStateExist();
+            const totalQuantity = (this.buyingMoney as BuyingMoney).money / BuyingMoney.UNIT_PRICE;
+            const autoQuantity = totalQuantity - this.manualNumberStates.length;
+            const convertedManualState = this.manualNumberStates.map((row) => 
+                row.map((col) => Number(col)));
+            
+            const winningNumbers = this.winningNumberStates.slice(0, 6).map(s => Number(s));
+            const winningBonusNumber = Number(this.winningNumberStates[6]);
+
+            Axios.all([
+                Request.buyAutoLotto(autoQuantity),
+                Request.buyManualLotto(convertedManualState),
+            ])
+            .then(Axios.spread((autoResponse: AxiosResponse, manResponse: AxiosResponse) => {
+                let lottoIds: number[] = [];
+                lottoIds = lottoIds.concat(autoResponse.data['lottos'].map((l: any) => l['id']));
+                lottoIds = lottoIds.concat(manResponse.data['lottos'].map((l: any) => l['id']));
+
+                Request.drawLotto(lottoIds, winningNumbers, winningBonusNumber)
+                    .then((res: AxiosResponse) => {
+                        this.$router.push({
+                            name: 'result',
+                            params: {
+                                resultId: res.data['aggregation']['id'],
+                            }
+                        });
+                    });
+            }));
+            
+        } catch(e) {
+            window.alert(e.message);
+        }
+    }
+
+    private assertAllStateExist() {
+        if (this.buyingMoney === null ||
+            this.manualNumberStates === null ||
+            this.winningNumberStates === null) {
+                throw new Error("상태가 이상해요 ㅠㅠ");
+            }
     }
 }
 </script>

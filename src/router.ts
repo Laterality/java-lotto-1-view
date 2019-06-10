@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Result from './views/Result.vue';
+import History from './views/History.vue';
 
 Vue.use(Router);
 
@@ -15,11 +17,11 @@ export default new Router({
     }, {
       path: '/history',
       name: 'history',
-      component: () => import('./views/History.vue'),
+      component: History,
     }, {
-      path: '/result',
+      path: '/result/:resultId',
       name: 'result',
-      component: () => import('./views/Result.vue'),
+      component: Result,
     },
   ],
 });
