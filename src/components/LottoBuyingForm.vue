@@ -63,7 +63,6 @@ export default class LottoBuyingForm extends Vue {
     }
 
     private onManualNumberSubmit(states: string[][]) {
-        console.log(states);
         this.disableManulaNumber = true;
         this.showWinningNumber = true;
         this.manualNumberStates = states;
@@ -75,7 +74,6 @@ export default class LottoBuyingForm extends Vue {
     }
 
     private onWinningNumberSubmit(currentState: string[]) {
-        console.log(currentState);
         this.disableWinningNumber = true;
         this.winningNumberStates = currentState;
         this.handleFormSubmit();

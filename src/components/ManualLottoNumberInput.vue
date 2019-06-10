@@ -58,7 +58,6 @@ export default class ManualLottoNumberInput extends Vue {
 
     private handleOnNumberChange(row: number, index: number, newValue: string) {
         this.inputStates[row].state[index] = newValue;
-        console.log(row, index, newValue);
     }
 
     private handleDelete(row: number) {
