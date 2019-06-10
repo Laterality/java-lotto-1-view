@@ -8,9 +8,9 @@
             v-model="buyingMoneyValue"
             type="text"
             :placeholder="minBuyingMoney"
-            :maxlength="minBuyingMoney.length"
+            :maxlength="maxBuyingMoney.length"
             :disabled="!isEnabled()"></b-form-input>원
-        <b-form-text>구입 금액은 {{ minBuyingMoney }}원 이상이어야 합니다. 한번에 {{ maxBuyingMoney }}원까지 구입할 수 있습니다.</b-form-text>
+        <b-form-text>구입 금액은 {{ minBuyingMoneyWithComma }}원 이상이어야 합니다. 한번에 {{ maxBuyingMoneyWithComma }}원까지 구입할 수 있습니다.</b-form-text>
         <b-alert v-model="showAlert" variant="danger">{{ alertMessage }}</b-alert>
         <transition name="fade">
             <div class="button-group" v-if="isEnabled()">
@@ -36,6 +36,8 @@ export default class BuyingMoneyInput extends Vue {
     private buyingMoneyValue: string | null;
     private minBuyingMoney: string;
     private maxBuyingMoney: string;
+    private minBuyingMoneyWithComma: string;
+    private maxBuyingMoneyWithComma: string;
     private showAlert: boolean;
     private alertMessage: string;
 
@@ -46,8 +48,10 @@ export default class BuyingMoneyInput extends Vue {
         super();
         this.buyingMoney = null;
         this.buyingMoneyValue = null;
-        this.minBuyingMoney = Util.convertToCommaSeparatedString(BuyingMoney.UNIT_PRICE);
-        this.maxBuyingMoney = Util.convertToCommaSeparatedString(BuyingMoney.MAX_PER_BUYING);
+        this.minBuyingMoneyWithComma = Util.convertToCommaSeparatedString(BuyingMoney.UNIT_PRICE);
+        this.maxBuyingMoneyWithComma = Util.convertToCommaSeparatedString(BuyingMoney.MAX_PER_BUYING);
+        this.minBuyingMoney = BuyingMoney.UNIT_PRICE.toString();
+        this.maxBuyingMoney = BuyingMoney.MAX_PER_BUYING.toString();
         this.showAlert = false;
         this.alertMessage = '';
     }
