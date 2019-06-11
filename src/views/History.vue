@@ -1,12 +1,37 @@
 <template>
-    <p>History page</p>
+    <div>
+        <TitleHeader title="당첨 내역" :showHistoryButton="false"/>
+        <ResultTable :results="items" />
+    </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
-export default class History extends Vue {
+import Request from '@/model/Request';
 
+import ResultTable, { ResultTableItem } from '@/components/ResultTable.vue';
+import TitleHeader from '@/components/TitleHeader.vue';
+
+import ResultDto from '../model/ResultDto';
+
+@Component({
+    components: {
+        TitleHeader,
+        ResultTable,
+    }
+})
+export default class History extends Vue {
+    private items: ResultTableItem[] = [];
+
+    public beforeMount() {
+        Request.retrieveResults(5)
+            .then((res) => {
+                res.data['aggregations']
+                    .map((obj: any) => ResultDto.of(obj))
+                    .map((dto: ResultDto) => dto.toJson())
+                    .forEach((obj: any) => this.items.push(obj));
+            });
+    }
 }
 </script>

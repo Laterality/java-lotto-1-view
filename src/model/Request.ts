@@ -24,3 +24,10 @@ export default class Request {
     public static retrieveResultById(resultId: number): AxiosPromise {
         return Axios.get(this.API_BASE_URL + '/result/' + resultId);
     }
+
+    public static retrieveResults(top: number): AxiosPromise {
+        return Axios.get(this.API_BASE_URL + `/results?top=${top}`);
+    }
+
+    private static readonly API_BASE_URL = 'http://localhost:4567/api';
+}
