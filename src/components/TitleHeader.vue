@@ -24,6 +24,7 @@ export default class TitleHeader extends Vue {
     background: #00BCD4;
     box-sizing: border-box;
     height: 256px;
+    margin-bottom: 24px;
     padding: 40px 0 0 60px;
     text-align: left;
 }

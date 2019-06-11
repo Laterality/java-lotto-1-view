@@ -1,7 +1,9 @@
 <template>
     <div>
         <TitleHeader title="당첨 내역" :showHistoryButton="false"/>
-        <ResultTable :results="items" />
+        <div class="container">
+            <ResultTable :results="items" />
+        </div>
     </div>
 </template>
 
@@ -35,3 +37,11 @@ export default class History extends Vue {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+    margin: 0 auto;
+    width: 80%;
+}
+</style>
+
