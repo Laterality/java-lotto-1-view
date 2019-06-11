@@ -12,6 +12,7 @@ import Util from '@/model/Util';
 import ResultDto from '@/model/ResultDto';
 
 export interface ResultTableItem {
+    id: number,
     lottoRound: number,
     cntFirst: number,
     cntSecond: number,
