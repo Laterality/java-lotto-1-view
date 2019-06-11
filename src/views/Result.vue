@@ -33,7 +33,7 @@ export default class Result extends Vue {
     beforeMount() {
         Request.retrieveResultById(Number(this.$route.params['resultId']))
             .then((res: AxiosResponse) => {
-                this.items.push(ResultDto.of(res.data['aggregation']).toJosn());
+                this.items.push(ResultDto.of(res.data['aggregation']).toJson());
             });
     }
 }

@@ -32,7 +32,7 @@ export default class ResultDto {
         );
     }
 
-    public toJosn() {
+    public toJson() {
         return {
             lottoRound: this._lottoRound,
             cntFirst: this._cntFirst,
