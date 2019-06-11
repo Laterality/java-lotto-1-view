@@ -27,8 +27,6 @@ export interface ResultTableItem {
 export default class ResultTable extends Vue {
     @Prop() private results!: ResultTableItem[];
 
-    private items: any[] = [];
-
     private fields = [
         {key: 'lottoRound', label: '회차'},
         {key: 'cntFirst', label: '1등'},
@@ -42,4 +40,3 @@ export default class ResultTable extends Vue {
     ];
 }
 </script>
-

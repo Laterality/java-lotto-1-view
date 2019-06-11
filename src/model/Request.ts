@@ -1,9 +1,6 @@
 import Axios, { AxiosPromise } from 'axios';
 
 export default class Request {
-
-    private static readonly API_BASE_URL = 'http://localhost:4567/api';
-
     public static buyAutoLotto(quantity: number): AxiosPromise {
         return Axios.post(this.API_BASE_URL + '/buy-auto', {
             quantity,
@@ -27,4 +24,3 @@ export default class Request {
     public static retrieveResultById(resultId: number): AxiosPromise {
         return Axios.get(this.API_BASE_URL + '/result/' + resultId);
     }
-}

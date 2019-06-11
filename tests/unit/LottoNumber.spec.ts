@@ -10,4 +10,4 @@ test('Throws when lotto number is in invalid range', () => {
 test('Throws when lotto number is NaN', () => {
     expect (() => LottoNumber.ofString('abcde'))
         .toThrow('숫자를 입력해주세요.');
-})
+});

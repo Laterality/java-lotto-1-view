@@ -4,7 +4,7 @@ export default class Util {
     }
 
     public static dateToString(date: Date) {
-        return `${date.getUTCFullYear()}년 ${date.getUTCMonth() + 1}월 ${date.getUTCDate()}일(${Util.dayToString(date.getUTCDay())})`;
+        return `${date.getUTCFullYear()}년 ${date.getUTCMonth() + 1}월 ${date.getUTCDate()}일(${Util.dayToString(date.getUTCDay())}) ${date.getUTCHours()}:${date.getUTCMinutes()}`;
     }
 
     private static dayToString(day: number) {

@@ -13,4 +13,3 @@ test('Throw exception when create with invalid string', () => {
     expect(() => BuyingMoney.ofString('abcdef'))
         .toThrowError(new Error('숫자를 입력해주세요.'));
 });
-

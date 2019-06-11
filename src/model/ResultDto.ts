@@ -28,12 +28,13 @@ export default class ResultDto {
             new Date(
                 json['regDate']['date']['year'], json['regDate']['date']['month'], json['regDate']['date']['day'],
                 json['regDate']['time']['hour'], json['regDate']['time']['minute'], json['regDate']['time']['second']
-            )
+            ),
         );
     }
 
     public toJson() {
         return {
+            id: this._id,
             lottoRound: this._lottoRound,
             cntFirst: this._cntFirst,
             cntSecond: this._cntSecond,
@@ -42,8 +43,8 @@ export default class ResultDto {
             cntFifth: this._cntFifth,
             cntNone: this._cntNone,
             prizeMoneySum: Util.convertToCommaSeparatedString(this._prizeMoneySum),
-            regDate: Util.dateToString(this._regDate)
-        }
+            regDate: Util.dateToString(this._regDate),
+        };
     }
 
     public get id() {
