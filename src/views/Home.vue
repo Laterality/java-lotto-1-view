@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <TitleHeader title="로또 구입" />
+    <TitleHeader title="로또 구입" :showHomeButton="false"/>
     <LottoBuyingForm 
       :onSubmit="handleSubmit"/>
   </div>
