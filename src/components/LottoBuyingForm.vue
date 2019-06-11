@@ -35,6 +35,8 @@ import BuyingMoney from '@/model/BuyingMoney';
 import BuyingMoneyInput from '@/components/BuyingMoneyInput.vue';
 import ManualLottoNumberInput from '@/components/ManualLottoNumberInput.vue';
 import WinningNumberInput from '@/components/WinningNumberInput.vue';
+import LottoNumber from '@/model/LottoNumber';
+import LottoNumberGroup from '../model/LottoNumberGroup';
 
 @Component({
     components: {
@@ -52,7 +54,7 @@ export default class LottoBuyingForm extends Vue {
     private showWinningNumber = false;
 
     private buyingMoney: BuyingMoney | null = null;
-    private manualNumberStates: string[][] = [];
+    private manualNumberStates: LottoNumber[][] = [];
     private winningNumberStates: string[] = [];
 
     private onBuyingMoneySubmit(money: BuyingMoney) {
@@ -62,10 +64,20 @@ export default class LottoBuyingForm extends Vue {
         this.buyingMoney = money;
     }
 
-    private onManualNumberSubmit(states: string[][]) {
-        this.disableManulaNumber = true;
-        this.showWinningNumber = true;
-        this.manualNumberStates = states;
+    private onManualNumberSubmit(states: string[][]): Error | null {
+        try {
+            console.log(states);
+            this.manualNumberStates = states.map(row => row.map(col => LottoNumber.ofString(col)));
+            this.manualNumberStates.map(row => LottoNumberGroup.from(row));
+            console.log('manStat', this.manualNumberStates);
+            this.disableManulaNumber = true;
+            this.showWinningNumber = true;
+            this.disableWinningNumber = false;
+            return null;
+        } catch(e) {
+            return e;
+        }
+
     }
 
     private onBackFromManualNumber() {
@@ -93,7 +105,7 @@ export default class LottoBuyingForm extends Vue {
             const totalQuantity = (this.buyingMoney as BuyingMoney).money / BuyingMoney.UNIT_PRICE;
             const autoQuantity = totalQuantity - this.manualNumberStates.length;
             const convertedManualState = this.manualNumberStates.map((row) => 
-                row.map((col) => Number(col)));
+                row.map((col: LottoNumber) => col.number));
             
             const winningNumbers = this.winningNumberStates.slice(0, 6).map(s => Number(s));
             const winningBonusNumber = Number(this.winningNumberStates[6]);

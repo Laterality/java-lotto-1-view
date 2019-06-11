@@ -2,8 +2,6 @@ export default class LottoNumber {
     public static readonly LOTTO_NUMBER_MIN = 1;
     public static readonly LOTTO_NUMBER_MAX = 45;
 
-    private num: number;
-
     public static ofNumber(num: number) {
         return new LottoNumber(num);
     }
@@ -16,9 +14,17 @@ export default class LottoNumber {
         return new LottoNumber(parsed);
     }
 
+    public static compare(a: LottoNumber, b: LottoNumber): number {
+        if (a._num > b._num) { return 1; }
+        if (a._num < b._num) { return -1; }
+        return 0;
+    }
+
+    private _num: number;
+
     private constructor(num: number) {
         this.assertValidRange(num);
-        this.num = num;
+        this._num = num;
     }
 
     private assertValidRange(num: number) {
@@ -28,9 +34,7 @@ export default class LottoNumber {
         }
     }
 
-    public static compare(a: LottoNumber, b: LottoNumber): number {
-        if (a.num > b.num) { return 1; }
-        if (a. num < b.num) { return -1; }
-        return 0;
+    public get number() {
+        return this._num;
     }
 }

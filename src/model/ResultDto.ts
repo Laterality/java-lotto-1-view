@@ -2,18 +2,6 @@ import Util from '@/model/Util';
 
 export default class ResultDto {
 
-    private constructor(
-        private _id: number,
-        private _lottoRound: number,
-        private _cntFirst: number,
-        private _cntSecond: number,
-        private _cntThird: number,
-        private _cntFourth: number,
-        private _cntFifth: number,
-        private _cntNone: number,
-        private _prizeMoneySum: number,
-        private _regDate: Date) { }
-
     public static of(json: any) {
         return new ResultDto(
             json['id'],
@@ -31,6 +19,18 @@ export default class ResultDto {
             ),
         );
     }
+
+    private constructor(
+        private _id: number,
+        private _lottoRound: number,
+        private _cntFirst: number,
+        private _cntSecond: number,
+        private _cntThird: number,
+        private _cntFourth: number,
+        private _cntFifth: number,
+        private _cntNone: number,
+        private _prizeMoneySum: number,
+        private _regDate: Date) { }
 
     public toJson() {
         return {

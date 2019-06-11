@@ -19,6 +19,7 @@
                 </template>
             </ul>
         </div>
+        <b-alert v-model="showAlert" variant="danger">{{ alertMessage }}</b-alert>
         <transition name="fade">
         <div class="button-group" v-show="isEnabled()">
             <b-button type="button" variant="primary" class="btn" @click="handleSubmit">확인</b-button>
@@ -33,6 +34,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import LottoNumberGroup from '@/model/LottoNumberGroup';
+import LottoNumber from '@/model/LottoNumber';
 
 import LottoNumberInputList from '@/components/LottoNumberInputList.vue';
 import LottoNumberInputGroup from '@/components/LottoNumberInputGroup.vue';
@@ -44,12 +46,15 @@ import LottoNumberInputGroup from '@/components/LottoNumberInputGroup.vue';
 })
 export default class ManualLottoNumberInput extends Vue {
     @Prop() private isEnabled!: () => boolean;
-    @Prop() private onSubmit!: (states: string[][]) => void;
+    @Prop() private onSubmit!: (states: string[][]) => Error | null;
     @Prop() private onBack!: () => void;
 
     private inputStates: InputGroupState[] = [];
 
     private manualQuantity: number;
+
+    private showAlert = false;
+    private alertMessage = '';
 
     constructor() {
         super();
@@ -57,7 +62,7 @@ export default class ManualLottoNumberInput extends Vue {
     }
 
     private handleOnNumberChange(row: number, index: number, newValue: string) {
-        this.inputStates[row].state[index] = newValue;
+        this.inputStates[row].updateState(index, newValue);
     }
 
     private handleDelete(row: number) {
@@ -70,7 +75,14 @@ export default class ManualLottoNumberInput extends Vue {
             states.push(i.state);
         }
 
-        this.onSubmit(states);
+        const err = this.onSubmit(states);
+        if (err !== null) {
+            this.showAlert = true;
+            this.alertMessage = err.message;
+            return;
+        }
+
+        this.showAlert = false;
     }
 
     private addNumber() {
@@ -86,9 +98,9 @@ class InputGroupState {
 
     private _states: string[] = [];
 
-    constructor(stateLength: number) {
+    constructor(stateSize: number) {
         this._id = InputGroupState.nextId++;
-        for (let i = 0; i < stateLength; i++) {
+        for(let i = 0; i < stateSize; i++) {
             this._states.push('');
         }
     }
@@ -101,8 +113,8 @@ class InputGroupState {
         return this._states;
     }
 
-    public set(index: number, value: string) {
-
+    public updateState(col: number, val: string) {
+        this._states[col] = val
     }
 }
 </script>

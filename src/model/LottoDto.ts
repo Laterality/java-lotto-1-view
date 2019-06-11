@@ -2,17 +2,6 @@ import Util from '@/model/Util';
 
 export default class LottoDto {
 
-    private constructor(
-        private _id: number,
-        private _number0: number,
-        private _number1: number,
-        private _number2: number,
-        private _number3: number,
-        private _number4: number,
-        private _number5: number,
-        private _price: number,
-        private _regDate: Date) {}
-
     public static of(json: any) {
         return new LottoDto(
             json['id'],
@@ -29,6 +18,17 @@ export default class LottoDto {
             ),
         );
     }
+
+    private constructor(
+        private _id: number,
+        private _number0: number,
+        private _number1: number,
+        private _number2: number,
+        private _number3: number,
+        private _number4: number,
+        private _number5: number,
+        private _price: number,
+        private _regDate: Date) {}
 
     public toJson() {
         return {

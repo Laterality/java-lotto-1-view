@@ -4,29 +4,29 @@
         @mouseleave="showRemoveButton=false">
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(0, n)"
+            :onChange="(n) => handleChange(0, n)"
             :isEnabled="isEnabled"/>
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(1, n)"
+            :onChange="(n) => handleChange(1, n)"
             :isEnabled="isEnabled"/>
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(2, n)"
+            :onChange="(n) => handleChange(2, n)"
             :isEnabled="isEnabled"/>
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(3, n)"
+            :onChange="(n) => handleChange(3, n)"
             :isEnabled="isEnabled"/>
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(4, n)"
+            :onChange="(n) => handleChange(4, n)"
             :isEnabled="isEnabled"/>
         <LottoNumberInput 
             class="lotto-number-input"
-            :onChange="(n) => onChange(5, n)"
+            :onChange="(n) => handleChange(5, n)"
             :isEnabled="isEnabled"/>
-        
+    
         <transition name="fade">
             <b-button 
             type="button" 
@@ -42,6 +42,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import LottoNumberInput from '@/components/LottoNumberInput.vue';
+import LottoNumber from '../model/LottoNumber';
 
 @Component({
     components: {
@@ -53,9 +54,11 @@ export default class LottoNumberInputGroup extends Vue {
     @Prop() private onChange!: (index: number, newValue: string) => void;
     @Prop() private onDelete!: () => void;
 
-    private vals = [];
     private showRemoveButton = false;
 
+    private handleChange(index: number, newValue: string) {
+        this.onChange(index, newValue);
+    }
 }
 </script>
 
@@ -76,6 +79,10 @@ export default class LottoNumberInputGroup extends Vue {
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .25s;
+}
+
+.alert {
+    margin: 14px 0 24px;
 }
 </style>
 
