@@ -52,7 +52,6 @@ body {
 
 .container {
   margin: 0 auto;
-  width: 890px;
 }
 
 .fade-enter-active, .fade-leave-active {
