@@ -21,11 +21,11 @@
         </div>
         <b-alert v-model="showAlert" variant="danger">{{ alertMessage }}</b-alert>
         <transition name="fade">
-        <div class="button-group" v-show="isEnabled()">
-            <b-button type="button" variant="primary" class="btn" @click="handleSubmit">확인</b-button>
-            <b-button type="button" variant="secondary" class="btn" @click="onBack">뒤로</b-button>
-            <b-button type="button" variant="outline-success" class="btn" @click="addNumber">번호 추가</b-button>
-        </div>
+            <div class="button-group" v-show="isEnabled()">
+                <b-button type="button" variant="primary" class="btn" @click="handleSubmit">확인</b-button>
+                <b-button type="button" variant="secondary" class="btn" @click="onBack">뒤로</b-button>
+                <b-button type="button" variant="outline-success" class="btn" @click="addNumber">번호 추가</b-button>
+            </div>
         </transition>
     </b-form>
 </template>

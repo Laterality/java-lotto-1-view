@@ -24,4 +24,13 @@ export default class LottoNumberGroup {
         nums.forEach((v) => this.nums.push(v));
         nums = nums.sort(LottoNumber.compare);
     }
+
+    public has(number: LottoNumber) {
+        const found = this.nums.find(((n) => LottoNumber.compare(number, n) === 0));
+        return found !== undefined;
+    }
+
+    public toArray() {
+        return this.nums.map((n) => n.number);
+    }
 }

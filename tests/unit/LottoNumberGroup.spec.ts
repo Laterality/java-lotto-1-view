@@ -11,5 +11,5 @@ test('Throw exception when create Lotto number group with set of number with has
         LottoNumber.ofNumber(7),
     ];
     expect(() => LottoNumberGroup.from(nums))
-        .toThrow('로또 숫자는 6개여야 합니다.');
+        .toThrow('로또 숫자는 중복되지 않는 숫자로 6개여야 합니다.');
 });
