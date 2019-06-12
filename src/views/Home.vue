@@ -20,8 +20,6 @@ import TitleHeader from '@/components/TitleHeader.vue';
 })
 export default class Home extends Vue {
 
-  private handleSubmit = (value: number) => {
-    console.log(value);
-  }
+  private handleSubmit(value: number) {}
 }
 </script>

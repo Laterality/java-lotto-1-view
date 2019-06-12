@@ -1,6 +1,22 @@
 import Util from '@/model/Util';
 
 export default class WinningLottoDto {
+    public static of(json: any) {
+        return new WinningLottoDto(
+            json.id,
+            json.winningNumber0,
+            json.winningNumber1,
+            json.winningNumber2,
+            json.winningNumber3,
+            json.winningNumber4,
+            json.winningNumber5,
+            json.winningBonusNumber,
+            new Date(
+                json.regDate.date.year, json.regDate.date.month, json.regDate.date.day,
+                json.regDate.time.hour, json.regDate.time.minute, json.regDate.time.second,
+            ),
+        );
+    }
 
     private constructor(
         private _id: number,
@@ -12,23 +28,6 @@ export default class WinningLottoDto {
         private _winningNumber5: number,
         private _winningNumberBonus: number,
         private _regDate: Date) {}
-
-    public static of(json: any) {
-        return new WinningLottoDto(
-            json['id'],
-            json['winningNumber0'],
-            json['winningNumber1'],
-            json['winningNumber2'],
-            json['winningNumber3'],
-            json['winningNumber4'],
-            json['winningNumber5'],
-            json['winningBonusNumber'],
-            new Date(
-                json['regDate']['date']['year'], json['regDate']['date']['month'], json['regDate']['date']['day'],
-                json['regDate']['time']['hour'], json['regDate']['time']['minute'], json['regDate']['time']['second']
-            ),
-        );
-    }
 
     public toJson() {
         return {

@@ -18,16 +18,16 @@ import Util from '@/model/Util';
 import ResultDto from '@/model/ResultDto';
 
 export interface ResultTableItem {
-    id: number,
-    lottoRound: number,
-    cntFirst: number,
-    cntSecond: number,
-    cntThird: number,
-    cntFourth: number,
-    cntFifth: number,
-    cntNone: number,
-    prizeMoneySum: string,
-    regDate: string
+    id: number;
+    lottoRound: number;
+    cntFirst: number;
+    cntSecond: number;
+    cntThird: number;
+    cntFourth: number;
+    cntFifth: number;
+    cntNone: number;
+    prizeMoneySum: string;
+    regDate: string;
 }
 
 @Component
@@ -45,7 +45,7 @@ export default class ResultTable extends Vue {
         {key: 'cntFifth', label: '5등'},
         {key: 'cntNone', label: '꽝'},
         {key: 'prizeMoneySum', label: '당첨금'},
-        {key: 'regDate', label: '추첨일자'}
+        {key: 'regDate', label: '추첨일자'},
     ];
 }
 </script>

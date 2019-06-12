@@ -21,15 +21,14 @@ import ResultDto from '../model/ResultDto';
     components: {
         TitleHeader,
         ResultTable,
-    }
-})
+    }})
 export default class History extends Vue {
     private items: ResultTableItem[] = [];
 
-    public beforeMount() {
+    private beforeMount() {
         Request.retrieveResults(5)
             .then((res) => {
-                res.data['aggregations']
+                res.data.aggregations
                     .map((obj: any) => ResultDto.of(obj))
                     .map((dto: ResultDto) => dto.toJson())
                     .forEach((obj: any) => this.items.push(obj));

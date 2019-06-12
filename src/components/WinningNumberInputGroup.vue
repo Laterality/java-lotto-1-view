@@ -42,8 +42,7 @@ import LottoNumberInput from '@/components/LottoNumberInput.vue';
 @Component({
     components: {
         LottoNumberInput,
-    }
-})
+    }})
 export default class WinningNumberInputGroup extends Vue {
     @Prop() private isEnabled!: () => boolean;
 

@@ -47,8 +47,7 @@ import LottoNumber from '../model/LottoNumber';
 @Component({
     components: {
         LottoNumberInput,
-    }
-})
+    }})
 export default class LottoNumberInputGroup extends Vue {
     @Prop() private isEnabled!: () => boolean;
     @Prop() private onChange!: (index: number, newValue: string) => void;

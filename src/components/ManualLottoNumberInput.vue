@@ -42,8 +42,7 @@ import LottoNumberInputGroup from '@/components/LottoNumberInputGroup.vue';
 @Component({
     components: {
         LottoNumberInputGroup,
-    }
-})
+    }})
 export default class ManualLottoNumberInput extends Vue {
     @Prop() private isEnabled!: () => boolean;
     @Prop() private onSubmit!: (states: string[][]) => Error | null;
@@ -93,14 +92,14 @@ export default class ManualLottoNumberInput extends Vue {
 }
 
 class InputGroupState {
-    private _id: number;
     private static nextId = 1;
 
+    private _id: number;
     private _states: string[] = [];
 
     constructor(stateSize: number) {
         this._id = InputGroupState.nextId++;
-        for(let i = 0; i < stateSize; i++) {
+        for (let i = 0; i < stateSize; i++) {
             this._states.push('');
         }
     }
@@ -114,7 +113,7 @@ class InputGroupState {
     }
 
     public updateState(col: number, val: string) {
-        this._states[col] = val
+        this._states[col] = val;
     }
 }
 </script>

@@ -8,12 +8,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 export interface LottoNumberTableItem {
-    number0: number,
-    number1: number,
-    number2: number,
-    number3: number,
-    number4: number,
-    number5: number,
+    number0: number;
+    number1: number;
+    number2: number;
+    number3: number;
+    number4: number;
+    number5: number;
 }
 
 @Component
@@ -27,7 +27,7 @@ export default class LottoNumberTable extends Vue {
         {key: 'number2', label: '숫자3'},
         {key: 'number3', label: '숫자4'},
         {key: 'number4', label: '숫자5'},
-        {key: 'number5', label: '숫자6'}
+        {key: 'number5', label: '숫자6'},
     ];
 }
 </script>

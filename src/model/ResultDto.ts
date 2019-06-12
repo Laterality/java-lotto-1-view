@@ -4,18 +4,18 @@ export default class ResultDto {
 
     public static of(json: any) {
         return new ResultDto(
-            json['id'],
-            json['lottoRound'],
-            json['cntFirst'],
-            json['cntSecond'],
-            json['cntThird'],
-            json['cntFourth'],
-            json['cntFifth'],
-            json['cntNone'],
-            json['prizeMoneySum'],
+            json.id,
+            json.lottoRound,
+            json.cntFirst,
+            json.cntSecond,
+            json.cntThird,
+            json.cntFourth,
+            json.cntFifth,
+            json.cntNone,
+            json.prizeMoneySum,
             new Date(
-                json['regDate']['date']['year'], json['regDate']['date']['month'], json['regDate']['date']['day'],
-                json['regDate']['time']['hour'], json['regDate']['time']['minute'], json['regDate']['time']['second']
+                json.regDate.date.year, json.regDate.date.month, json.regDate.date.day,
+                json.regDate.time.hour, json.regDate.time.minute, json.regDate.time.second,
             ),
         );
     }

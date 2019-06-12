@@ -72,14 +72,14 @@ export default class LottoBuyingForm extends Vue {
     private onManualNumberSubmit(states: string[][]): Error | null {
         try {
             this.manualNumberStates = states
-                .map(row => row
-                    .map(col => LottoNumber.ofString(col)))
-                .map(row => LottoNumberGroup.from(row));
+                .map((row) => row
+                    .map((col) => LottoNumber.ofString(col)))
+                .map((row) => LottoNumberGroup.from(row));
             this.disableManulaNumber = true;
             this.showWinningNumber = true;
             this.disableWinningNumber = false;
             return null;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
 
@@ -93,14 +93,14 @@ export default class LottoBuyingForm extends Vue {
     private onWinningNumberSubmit(currentState: string[]): Error | null {
         try {
             const winningNums = currentState
-                .map((s) => LottoNumber.ofString(s))
+                .map((s) => LottoNumber.ofString(s));
             this.winningNumberState = WinningLotto.of(
                 LottoNumberGroup.from(winningNums.slice(0, 6)),
                 winningNums[6]);
             this.disableWinningNumber = true;
             this.handleFormSubmit();
             return null;
-        } catch(e) {
+        } catch (e) {
             return e;
         }
     }
@@ -119,22 +119,22 @@ export default class LottoBuyingForm extends Vue {
             const buyingMoney = this.buyingMoney as BuyingMoney;
             const totalQuantity = Math.floor(buyingMoney.money / BuyingMoney.UNIT_PRICE);
             const autoQuantity = totalQuantity - this.manualNumberStates.length;
-            const convertedManualState = this.manualNumberStates.map((row) => 
-                row.toArray());
-            
+            const convertedManualState = this.manualNumberStates
+                .map((row) => row.toArray());
+
             const wn = this.winningNumberState as WinningLotto as WinningLotto;
             const winningNumbers = wn.numbersToArray();
             const winningBonusNumber = wn.bonusNumber;
 
             Request.buyLotto(buyingMoney.money, convertedManualState)
-            .then((res: AxiosResponse) => {
-                const lottoIds = res.data['lottos'].map((obj: any) => obj.id);
+            .then((buyRes: AxiosResponse) => {
+                const lottoIds = buyRes.data.lottos.map((obj: any) => obj.id);
                 Request.drawLotto(lottoIds, winningNumbers, winningBonusNumber)
-                    .then((res: AxiosResponse) => {
-                        this.handleDrawResult(res);
+                    .then((drawRes: AxiosResponse) => {
+                        this.handleDrawResult(drawRes);
                     });
-             })
-        } catch(e) {
+             });
+        } catch (e) {
             window.alert(e.message);
         }
     }
@@ -143,7 +143,7 @@ export default class LottoBuyingForm extends Vue {
         if (this.buyingMoney === null ||
             this.manualNumberStates === null ||
             this.winningNumberState === null) {
-                throw new Error("상태가 이상해요 ㅠㅠ");
+                throw new Error('상태가 이상해요 ㅠㅠ');
             }
     }
 
@@ -152,8 +152,8 @@ export default class LottoBuyingForm extends Vue {
             this.$router.push({
                 name: 'result',
                 params: {
-                    resultId: res.data['aggregation']['id'],
-                }
+                    resultId: res.data.aggregation.id,
+                },
             });
             return;
         }

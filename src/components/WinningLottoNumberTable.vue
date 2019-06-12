@@ -8,13 +8,13 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 export interface WinningLottoNumberTableItem {
-    winningNumber0: number,
-    winningNumber1: number,
-    winningNumber2: number,
-    winningNumber3: number,
-    winningNumber4: number,
-    winningNumber5: number,
-    winningNumberBonus: number
+    winningNumber0: number;
+    winningNumber1: number;
+    winningNumber2: number;
+    winningNumber3: number;
+    winningNumber4: number;
+    winningNumber5: number;
+    winningNumberBonus: number;
 }
 
 @Component
@@ -28,7 +28,7 @@ export default class WinningLottoNumberTable extends Vue {
         {key: 'winningNumber3', label: '숫자4'},
         {key: 'winningNumber4', label: '숫자5'},
         {key: 'winningNumber5', label: '숫자6'},
-        {key: 'winningNumberBonus', label: '보너스 볼'}
+        {key: 'winningNumberBonus', label: '보너스 볼'},
     ];
 }
 </script>

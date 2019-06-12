@@ -40,8 +40,7 @@ import LottoNumberTable, { LottoNumberTableItem } from '@/components/LottoNumber
         ResultTable,
         WinningLottoNumberTable,
         LottoNumberTable,
-    }
-})
+    }})
 export default class Result extends Vue {
     private items: ResultTableItem[] = [];
     private winningNumbers: WinningLottoNumberTableItem[] = [];
@@ -51,12 +50,12 @@ export default class Result extends Vue {
         super();
     }
 
-    beforeMount() {
-        Request.retrieveResultById(Number(this.$route.params['resultId']))
+    private beforeMount() {
+        Request.retrieveResultById(Number(this.$route.params.resultId))
             .then((res: AxiosResponse) => {
-                this.items.push(ResultDto.of(res.data['aggregation']).toJson());
-                this.winningNumbers.push(WinningLottoDto.of(res.data['aggregation']['winningLotto']).toJson());
-                res.data['aggregation']['lottos']
+                this.items.push(ResultDto.of(res.data.aggregation).toJson());
+                this.winningNumbers.push(WinningLottoDto.of(res.data.aggregation.winningLotto).toJson());
+                res.data.aggregation.lottos
                     .map((obj: any) => LottoDto.of(obj))
                     .map((l: LottoDto) => l.toJson())
                     .forEach((json: any) => this.lottoNumbers.push(json));

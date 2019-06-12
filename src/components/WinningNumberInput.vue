@@ -24,8 +24,7 @@ import WinningNumberInputGroup from '@/components/WinningNumberInputGroup.vue';
 @Component({
     components: {
         WinningNumberInputGroup,
-    }
-})
+    }})
 export default class WinningNumberInput extends Vue {
     @Prop() private onSubmit!: (currentState: string[]) => Error | null;
     @Prop() private onBack!: () => void;
@@ -49,11 +48,7 @@ export default class WinningNumberInput extends Vue {
     }
 
     private handleBack() {
-        try {
-            this.onBack();
-        } catch(e) {
-            console.log('error: ', e);
-        }
+        this.onBack();
     }
 }
 </script>
