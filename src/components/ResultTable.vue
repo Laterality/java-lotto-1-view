@@ -1,6 +1,12 @@
 <template>
     <div>
-        <b-table :fields="fields" :items="results"></b-table>
+        <b-table :fields="fields" :items="results">j
+            <template slot="table-caption">{{ caption }}</template>
+            <template slot="lottoRound" slot-scope="row">
+                <router-link :to="'/result/' + row.item.id" v-if="enableLink">{{ row.item.lottoRound }}</router-link>
+                <template v-else>{{ row.item.lottoRound }}</template>
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -27,6 +33,8 @@ export interface ResultTableItem {
 @Component
 export default class ResultTable extends Vue {
     @Prop() private results!: ResultTableItem[];
+    @Prop({default: false}) private enableLink?: boolean;
+    @Prop({default: ''}) private caption?: string;
 
     private fields = [
         {key: 'lottoRound', label: '회차'},

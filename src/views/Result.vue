@@ -5,7 +5,8 @@
             <h1>추첨 통계</h1>
             <ResultTable 
                 class="tbl"
-                :results="items"/>
+                :results="items"
+                :enableLink="false"/>
             <h1>당첨 번호</h1>
             <WinningLottoNumberTable 
                 class="tbl"

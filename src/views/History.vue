@@ -2,7 +2,7 @@
     <div>
         <TitleHeader title="당첨 내역" :showHistoryButton="false"/>
         <div class="container">
-            <ResultTable :results="items" />
+            <ResultTable :results="items" :enableLink="true" caption="추첨 내역은 최근 5개까지만 제공됩니다."/>
         </div>
     </div>
 </template>

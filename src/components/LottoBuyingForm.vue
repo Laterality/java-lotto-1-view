@@ -21,6 +21,7 @@
                 :onSubmit="onWinningNumberSubmit"
                 :onBack="onBackFromWinningNumber"/>
         </transition>
+        <b-alert v-model="showAlert" variant="danger">{{ alertMessage }}</b-alert>
     </div>
 </template>
 
@@ -53,6 +54,9 @@ export default class LottoBuyingForm extends Vue {
 
     private showManualNumber = false;
     private showWinningNumber = false;
+
+    private showAlert = false;
+    private alertMessage = '';
 
     private buyingMoney: BuyingMoney | null = null;
     private manualNumberStates: LottoNumberGroup[] = [];
@@ -127,12 +131,7 @@ export default class LottoBuyingForm extends Vue {
                 const lottoIds = res.data['lottos'].map((obj: any) => obj.id);
                 Request.drawLotto(lottoIds, winningNumbers, winningBonusNumber)
                     .then((res: AxiosResponse) => {
-                        this.$router.push({
-                            name: 'result',
-                            params: {
-                                resultId: res.data['aggregation']['id'],
-                            }
-                        });
+                        this.handleDrawResult(res);
                     });
              })
         } catch(e) {
@@ -146,6 +145,20 @@ export default class LottoBuyingForm extends Vue {
             this.winningNumberState === null) {
                 throw new Error("상태가 이상해요 ㅠㅠ");
             }
+    }
+
+    private handleDrawResult(res: AxiosResponse) {
+        if (res.data.result === 'ok') {
+            this.$router.push({
+                name: 'result',
+                params: {
+                    resultId: res.data['aggregation']['id'],
+                }
+            });
+            return;
+        }
+        this.alertMessage = res.data.message;
+        this.showAlert = true;
     }
 }
 </script>
