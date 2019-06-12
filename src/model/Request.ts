@@ -13,6 +13,13 @@ export default class Request {
         });
     }
 
+    public static buyLotto(buyingMoney: number, manualNumbers: number[][]) {
+        return Axios.post(this.API_BASE_URL + '/buy', {
+            buyingMoney,
+            manualNumbers,
+        });
+    }
+
     public static drawLotto(lottoIds: number[], winningNumbers: number[], winningBonusNumber: number): AxiosPromise {
         return Axios.post(this.API_BASE_URL + '/draw', {
             lottos: lottoIds,

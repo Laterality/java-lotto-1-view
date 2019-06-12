@@ -112,7 +112,8 @@ export default class LottoBuyingForm extends Vue {
         // this.$router.push('/result' + resultId);
         try {
             this.assertAllStateExist();
-            const totalQuantity = Math.floor((this.buyingMoney as BuyingMoney).money / BuyingMoney.UNIT_PRICE);
+            const buyingMoney = this.buyingMoney as BuyingMoney;
+            const totalQuantity = Math.floor(buyingMoney.money / BuyingMoney.UNIT_PRICE);
             const autoQuantity = totalQuantity - this.manualNumberStates.length;
             const convertedManualState = this.manualNumberStates.map((row) => 
                 row.toArray());
@@ -121,25 +122,19 @@ export default class LottoBuyingForm extends Vue {
             const winningNumbers = wn.numbersToArray();
             const winningBonusNumber = wn.bonusNumber;
 
-            Axios.all([
-                Request.buyAutoLotto(autoQuantity),
-                Request.buyManualLotto(convertedManualState),
-            ])
-                .then(Axios.spread((autoResponse: AxiosResponse, manResponse: AxiosResponse) => {
-                    let lottoIds: number[] = [];
-                    lottoIds = lottoIds.concat(autoResponse.data['lottos'].map((l: any) => l['id']));
-                    lottoIds = lottoIds.concat(manResponse.data['lottos'].map((l: any) => l['id']));
-
-                    Request.drawLotto(lottoIds, winningNumbers, winningBonusNumber)
-                        .then((res: AxiosResponse) => {
-                            this.$router.push({
-                                name: 'result',
-                                params: {
-                                    resultId: res.data['aggregation']['id'],
-                                }
-                            });
+            Request.buyLotto(buyingMoney.money, convertedManualState)
+            .then((res: AxiosResponse) => {
+                const lottoIds = res.data['lottos'].map((obj: any) => obj.id);
+                Request.drawLotto(lottoIds, winningNumbers, winningBonusNumber)
+                    .then((res: AxiosResponse) => {
+                        this.$router.push({
+                            name: 'result',
+                            params: {
+                                resultId: res.data['aggregation']['id'],
+                            }
                         });
-            }));
+                    });
+             })
         } catch(e) {
             window.alert(e.message);
         }
